@@ -1,10 +1,9 @@
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-
 .bg-primary {
- background: linear-gradient(to bottom, black, #0e1424);
+  background: linear-gradient(to bottom, black, #0e1424);
 }
 
 .gradient-text {
@@ -13,4 +12,135 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+}
+
+.line {
+  position: relative;
+  display: inline-block; 
+}
+.line::after {
+  content: "";
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  height: 2px;
+  background-color: #3b82f6; 
+  transition: width 0.3s ease;
+}
+
+/* 1️⃣ White → Blue → Black */
+.gradient-1 {
+  background: linear-gradient(120deg, #ffffff, #3b82f6, #000000);
+}
+
+/* 2️⃣ Yellow → Blue → White */
+.gradient-2 {
+  background: linear-gradient(90deg, #facc15, #3b82f6, #ffffff);
+}
+
+/* 3️⃣ Black → Yellow → Blue */
+.gradient-3 {
+  background: linear-gradient(135deg, #000000, #facc15, #3b82f6);
+}
+
+/* 4️⃣ Blue → White → Yellow */
+.gradient-4 {
+  background: linear-gradient(150deg, #3b82f6, #ffffff, #facc15);
+}
+
+/* 5️⃣ Subtle blend: White → Yellow → Black → Blue */
+.gradient-5 {
+  background: linear-gradient(160deg, #ffffff, #facc15, #000000, #3b82f6);
+}
+
+
+.card-container{
+    margin: 3rem auto ;
+    display: grid;
+    grid-template-columns: auto;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    height: auto;
+    
+}
+
+
+
+
+.card{
+    width: 380px;
+    height: 500px;
+      background: linear-gradient(to right bottom, #60a5fa, #2563eb); /* blue shades */
+    border-radius: 6px;
+    padding: 10px;
+    position: relative;
+}
+
+.imageContainer{
+    width: 95%;
+    margin: 0 auto;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1.5px solid var(--white);
+    filter: drop-shadow(3px 8px 4rem var(--cardImage));
+}
+
+.imageContainer:hover{
+    transform: scale(1.1);
+}
+
+.imageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1.5px solid var(--white);
+}
+
+.content{
+    color: var(--white);
+    margin-top:1rem ;
+}
+
+.content h1{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.content p{
+    font-size: 1rem;
+    color: var(--para);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+}
+
+.buttonContainer button{
+    background: var(--button);
+    padding: 8px 12px;
+    border-radius: 7px;
+    font-weight: 400;
+}
+
+.buttonContainer button:hover{
+    background: var(--para);
+    transform: scale(1.05);
+}
+
+.buttonContainer button a{
+    color: var(--buttonText);
+    font-size: 1rem;
 }

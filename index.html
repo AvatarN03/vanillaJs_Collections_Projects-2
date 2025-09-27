@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="./src/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,7 +23,7 @@
         <div class="flex gap-6 justify-between items-center">
           <ul class="flex gap-6 justify-between items-center">
             <li>
-              <a href="/index.html" class="relative group">
+              <a href="#" class="relative group">
                 Home
                 <span class="absolute left-0 bottom-0 w-0 h-[2px] bg-blue-500 transition-all group-hover:w-full"></span>
               </a>
@@ -35,7 +35,7 @@
               </a>
             </li>
             <li>
-              <a href="./src/pages/abouts.html" class="relative group">
+              <a href="./src/pages/about.html" class="relative group">
                 About
                 <span class="absolute left-0 bottom-0 w-0 h-[2px] bg-blue-500 transition-all group-hover:w-full"></span>
               </a>
@@ -43,21 +43,55 @@
           </ul>
 
           <button class="bg-[#0f1430] border-[0.2px] flex justify-center items-center p-2 rounded-md hover:bg-blue-700">
-            <a href="https://github.com/AvatarN03"><i class="fa-solid fa-star"></i> Give a Star</a>
+            <a href="https://github.com/AvatarN03" target="_blank"><i class="fa-solid fa-star"></i> Give a Star</a>
           </button>
         </div>
       </div>
     </header>
 
     <!-- section -->
-    <section class="bg-primary h-[60vh] w-full flex flex-col justify-start items-center gap-4 py-28">
+    <section class="bg-primary min-h-[60vh] w-full flex flex-col justify-start items-center gap-4 py-28">
       <h1 class="text-7xl font-medium text-center">Vanilla <span class="text-yellow-300">JS</span> Projects
         <br /><span class="font-semibold gradient-text">Collections</span>
       </h1>
       <p>A showcase of my hands-on JavaScript projects — built without frameworks, just clean HTML, CSS, and JS."</p>
     </section>
+    <section class="bg-black min-h-[60vh] w-full py-28 ">
+      <div class="max-w-5xl mx-auto text-center px-4 flex flex-col justify-start items-center gap-8">
+
+        <h1 class="text-5xl font-medium text-center">Why <span class="font-semibold gradient-text relative">Vanilla
+            <span class="absolute bottom-0 w-full h-[5px] bg-blue-500 left-0"></span>
+          </span><span class="text-yellow-300">JS</span>?
+
+        </h1>
+        <p>Before diving into frameworks, I focused on mastering the fundamentals of JavaScript. These projects
+          highlight problem-solving, DOM manipulation, and clean UI development using core web technologies.</p>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center p-6 mt-auto">
+      <div class="flex justify-between items-center border-b-2 border-gray-700">
+
+        <h2 class="text-2xl font-semibold mb-4">Want to see <span class="gradient-text">more?</span></h2>
+        <div class="flex justify-center gap-6 mb-4">
+          <a href="https://github.com/AvatarN03" target="_blank"
+            class="text-blue-400 hover:text-blue-300 transition-colors">GitHub</a>
+          <a href="https://yourportfolio.com" target="_blank"
+            class="text-blue-400 hover:text-blue-300 transition-colors">Portfolio</a>
+          <a href="mailto:jsprashanth003@gmail.com" class="text-blue-400 hover:text-blue-300 transition-colors">Contact</a>
+        </div>
+
+      </div>
+      <small class="block text-gray-400 text-sm py-2 ">Built with 💻 Vanilla JavaScript.</small>
+      <div class="flex justify-between items-center text-gray-400">
+        <p>&copy; <span id='date' class="text-yellow-300">2025</span> by Prashant<span class="gradient-text font-semibold line">h</span> Naidu</p>
+      </div>
+    </footer>
   </div>
-  <script type="module" src="/src/main.js"></script>
+  <script>
+    const date = document.querySelector('#date');
+    date.innerHTML = new Date().getFullYear();
+  </script>
 </body>
 
 </html>
