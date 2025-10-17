@@ -10,16 +10,19 @@ const chunkSize = 10;
 let currentIndex = 0;
 
 const cardContainer = document.querySelector("#card-container");
-const loadMoreBtn = document.querySelector("#loadMoreBtn"); // Make sure this exists in HTML!
+const loadMoreBtn = document.querySelector("#loadMoreBtn"); 
+const searchInput = document.querySelector("#searchInput");
+let filteredProjects =[]
+
 
 // 3️⃣ Render function (chunked)
-function renderProjectsChunk(startIndex, size) {
-  
+function renderProjectsChunk(startIndex, size, dataArray = filteredProjects.length ? filteredProjects : allProjectData) {  
 
   const fragment = document.createDocumentFragment();
+  cardContainer.innerHTML = "";
 
-  for (let i = startIndex; i < Math.min(startIndex + size, allProjectData.length); i++) {
-    const project = allProjectData[i];
+  for (let i = startIndex; i < Math.min(startIndex + size, dataArray.length); i++) {
+    const project = dataArray[i];
 
     const card = document.createElement("div");
     card.className = "card";
@@ -66,6 +69,12 @@ function renderProjectsChunk(startIndex, size) {
   cardContainer.appendChild(fragment);
   currentIndex += size;
 
+  //hide the loadmore button
+  if (loadMoreBtn) {
+    loadMoreBtn.style.display =
+      currentIndex >= dataArray.length ? "none" : "block";
+  }
+
 }
 
 // 4️⃣ Load more button click
@@ -74,15 +83,30 @@ if (loadMoreBtn) {
     renderProjectsChunk(currentIndex, chunkSize);
   });
 }
+if(searchInput){
+  searchInput.addEventListener("input", (e)=>{
+    const query = e.target.value.trim().toLowerCase();
+
+    if(query == "") filteredProjects =[]
+    else {
+      filteredProjects = allProjectData.filter(
+        (project)=> 
+          project.title.toLowerCase().includes(query) ||
+          project.description.toLowerCase().includes(query)
+      )
+    }
+    currentIndex =0;
+    renderProjectsChunk(0, chunkSize);
+  })
+}
 
 // 5️⃣ Load projects module
 async function loadProjects() {
-  if (!allProjectData.length) {
-    const module = await import('./lib/data.js'); // dynamic import
-    const res = module.default;
-    allProjectData = res.projects
-    console.log(allProjectData)
+   if (!allProjectData.length) {
+    const module = await import("./lib/data.js");
+    allProjectData = module.default.projects;
   }
+  currentIndex = 0;
   renderProjectsChunk(0, chunkSize);
 }
 
