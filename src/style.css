@@ -72,7 +72,7 @@ body {
 
 
 .card{    
-    height: 500px;
+    height: 350px;
       background: linear-gradient(to right bottom, #60a5fa, #2563eb); /* blue shades */
     border-radius: 6px;
     padding: 10px;
@@ -82,11 +82,11 @@ body {
 .imageContainer{
     width: 95%;
     margin: 0 auto;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
     border-radius: 8px;
-    transition: all 300ms ease-in-out;
-    /* transition-duration: 300ms; */
+    transition: transform 300ms ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .imageContainer:hover{
@@ -138,8 +138,11 @@ body {
 
 
 .buttonContainer button a{
-    color: var(--buttonText);
+    color: gray;
     font-size: 1rem;
+}
+.buttonContainer button:hover a{
+  color:white;
 }
 
 /* Custom gradient scrollbar */
@@ -167,8 +170,26 @@ body {
   scrollbar-color: #2563eb #0e1424;
 }
 
-@media screen and (max-width: 650px) {
-  .card{
-    height: 450px;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
+
+ @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 8s ease infinite;
+        }

@@ -10,19 +10,37 @@ const chunkSize = 10;
 let currentIndex = 0;
 
 const cardContainer = document.querySelector("#card-container");
-const loadMoreBtn = document.querySelector("#loadMoreBtn"); 
+const loadMoreBtn = document.querySelector("#load-more"); 
 const searchInput = document.querySelector("#searchInput");
 let filteredProjects =[]
 
 
-// 3️⃣ Render function (chunked)
-function renderProjectsChunk(startIndex, size, dataArray = filteredProjects.length ? filteredProjects : allProjectData) {  
+// 3️⃣ Render function (chunked, append when startIndex > 0)
+function renderProjectsChunk(startIndex, size /* dataArray not used any more */) {
+  // choose active data explicitly:
+  // - if user has a non-empty search term -> use filteredProjects (even if it's an empty array)
+  // - otherwise use full allProjectData
+  const isSearching = searchInput && searchInput.value.trim() !== "";
+  const activeData = isSearching ? filteredProjects : allProjectData;
+
+  // if no data, show message and hide load more
+  if (!activeData || activeData.length === 0) {
+    if (cardContainer) cardContainer.innerHTML = "<p class='no-results'>No projects found.☹️🥲</p>";
+    if (loadMoreBtn) loadMoreBtn.style.display = "none";
+    currentIndex = 0;
+    return;
+  }
+
+  // clear only when starting from 0 (new render / search / initial load)
+  if (startIndex === 0 && cardContainer) {
+    cardContainer.innerHTML = "";
+  }
 
   const fragment = document.createDocumentFragment();
-  cardContainer.innerHTML = "";
+  const endIndex = Math.min(startIndex + size, activeData.length);
 
-  for (let i = startIndex; i < Math.min(startIndex + size, dataArray.length); i++) {
-    const project = dataArray[i];
+  for (let i = startIndex; i < endIndex; i++) {
+    const project = activeData[i];
 
     const card = document.createElement("div");
     card.className = "card";
@@ -33,6 +51,7 @@ function renderProjectsChunk(startIndex, size, dataArray = filteredProjects.leng
 
     const image = document.createElement("img");
     image.src = project.image;
+    image.alt = project.title || "project image";
     image.loading = "lazy";
     imageContainer.appendChild(image);
 
@@ -41,9 +60,11 @@ function renderProjectsChunk(startIndex, size, dataArray = filteredProjects.leng
 
     const title = document.createElement("h1");
     title.textContent = project.title;
+    title.style.color = "#333333";
 
     const description = document.createElement("p");
     description.textContent = project.description;
+    description.style.color = "#121212";
 
     content.appendChild(title);
     content.appendChild(description);
@@ -55,6 +76,7 @@ function renderProjectsChunk(startIndex, size, dataArray = filteredProjects.leng
     const anchor = document.createElement("a");
     anchor.href = project.link;
     anchor.target = "_blank";
+    anchor.rel = "noopener";
     anchor.textContent = "View Project";
     button.appendChild(anchor);
     buttonContainer.appendChild(button);
@@ -66,36 +88,40 @@ function renderProjectsChunk(startIndex, size, dataArray = filteredProjects.leng
     fragment.appendChild(card);
   }
 
-  cardContainer.appendChild(fragment);
-  currentIndex += size;
+  if (cardContainer) cardContainer.appendChild(fragment);
 
-  //hide the loadmore button
+  // update currentIndex to reflect how many items are now shown for the activeData
+  currentIndex = endIndex;
+
+  // hide or show load more button based on remaining items in the activeData
   if (loadMoreBtn) {
-    loadMoreBtn.style.display =
-      currentIndex >= dataArray.length ? "none" : "block";
+    loadMoreBtn.style.display = currentIndex >= activeData.length ? "none" : "block";
   }
-
 }
 
 // 4️⃣ Load more button click
 if (loadMoreBtn) {
   loadMoreBtn.addEventListener("click", () => {
+    // append next chunk (do not clear existing cards)
     renderProjectsChunk(currentIndex, chunkSize);
   });
 }
-if(searchInput){
-  searchInput.addEventListener("input", (e)=>{
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
     const query = e.target.value.trim().toLowerCase();
 
-    if(query == "") filteredProjects =[]
-    else {
+    if (query === "") {
+      filteredProjects = [];
+    } else {
       filteredProjects = allProjectData.filter(
-        (project)=> 
+        (project) =>
           project.title.toLowerCase().includes(query) ||
           project.description.toLowerCase().includes(query)
-      )
+      );
     }
-    currentIndex =0;
+
+    // reset index and render from start (this will clear the container)
+    currentIndex = 0;
     renderProjectsChunk(0, chunkSize);
   })
 }
@@ -104,7 +130,8 @@ if(searchInput){
 async function loadProjects() {
    if (!allProjectData.length) {
     const module = await import("./lib/data.js");
-    allProjectData = module.default.projects;
+    // module.default is expected to be the object { projects: [...] } or an array depending on your data.js
+    allProjectData = module.default.projects || module.default || [];
   }
   currentIndex = 0;
   renderProjectsChunk(0, chunkSize);
