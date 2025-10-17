@@ -129,7 +129,7 @@ if (searchInput) {
 // 5️⃣ Load projects module
 async function loadProjects() {
    if (!allProjectData.length) {
-    const module = await import("./lib/data.js");
+    const module = await import("./data.js");
     // module.default is expected to be the object { projects: [...] } or an array depending on your data.js
     allProjectData = module.default.projects || module.default || [];
   }
