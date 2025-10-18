@@ -128,9 +128,10 @@ if (searchInput) {
 
 // 5️⃣ Load projects module
 async function loadProjects() {
- const response = await fetch("/data1.json");
-  const data = await response.json();
-  allProjectData = data.projects || [];
+  if (!allProjectData.length) {
+    const module = await import("./data1.js"); // ✅ relative import
+    allProjectData = module.default.projects || [];
+  }
   currentIndex = 0;
   renderProjectsChunk(0, chunkSize);
 }
