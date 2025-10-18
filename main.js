@@ -129,7 +129,7 @@ if (searchInput) {
 // 5️⃣ Load projects module
 async function loadProjects() {
   if (!allProjectData.length) {
-    const module = await import("./data1.js"); // ✅ relative import
+    const module = await import("./pages/data1.js"); // ✅ relative import
     allProjectData = module.default.projects || [];
   }
   currentIndex = 0;
