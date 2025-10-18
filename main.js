@@ -128,11 +128,9 @@ if (searchInput) {
 
 // 5️⃣ Load projects module
 async function loadProjects() {
-   if (!allProjectData.length) {
-    const module = await import("./data.js");
-    // module.default is expected to be the object { projects: [...] } or an array depending on your data.js
-    allProjectData = module.default.projects || module.default || [];
-  }
+ const response = await fetch("/data1.json");
+  const data = await response.json();
+  allProjectData = data.projects || [];
   currentIndex = 0;
   renderProjectsChunk(0, chunkSize);
 }
