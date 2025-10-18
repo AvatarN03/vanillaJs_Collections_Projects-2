@@ -21,6 +21,17 @@ gsap.to("#scroll-scale-img", {
   },
 });
 
+gsap.fromTo("#card-container", {
+  opacity: 0,
+  y: 50,
+}, {
+  opacity: 1,
+  y:-50,
+  delay:1.5,
+  ease: "easeIn",
+  duration: 1,
+})
+
 gsap.set(".c", {
             opacity: 0,
             y: 100,

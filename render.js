@@ -199,11 +199,6 @@ const allProjectData = {
   ],
 };
 
-export default allProjectData;
-
-import "@fontsource/inter";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/700.css";
 
 // Pagination and rendering logic below...
 const chunkSize = 10;
