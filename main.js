@@ -216,6 +216,8 @@ const searchInput = document.querySelector("#searchInput");
 
 // 🔹 set global data
 const allProjects = allProjectData.projects;
+console.log(allProjectData)
+console.log(allProjects)
 
 // 🔹 rest of your render code (same as before)
 function renderProjectsChunk(startIndex, size) {
