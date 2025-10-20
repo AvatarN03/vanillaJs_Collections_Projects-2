@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="./assets/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="min-h-screen  bg-primary text-white">
+  <div class="h-auto  bg-primary text-white">
     <!-- navbar -->
     <header class="bg-[#0e1424] h-16 w-full">
       <div class="max-w-7xl mx-auto flex justify-between items-center h-full px-4">
@@ -50,7 +50,7 @@
     </header>
 
 
-    <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section class="relative h-auto md:min-h-[80vh] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-purple-500 via-blue-900 to-gray-900 animate-gradient"></div>
 
       <div class="relative z-10 container mx-auto px-6 py-10 md:py-20">
@@ -85,8 +85,8 @@
       </div>
     </section>
     <!-- Skills Section -->
-    <section class="py-20 bg-gray-900">
-      <div class="container mx-auto px-6">
+    <section class="min-h-[60vh] py-20 bg-gray-900">
+      <div class="mx-auto px-6">
         <h2 class="text-4xl font-bold mb-12 text-center">Skills & Expertise</h2>
         <div class="max-w-5xl mx-auto">
           <div class="grid md:grid-cols-3 gap-8 font-extralight  ">
@@ -105,7 +105,7 @@
               <h3 class="text-2xl font-semibold mb-4 text-blue-400">Backend</h3>
               <ul class="space-y-2 text-gray-300">
                 <li>• Node.js & Express</li>
-                <li>• Python & Django</li>
+                <li>• Python & AI/ML</li>
                 <li>• PostgreSQL</li>
                 <li>• REST APIs</li>
               </ul>

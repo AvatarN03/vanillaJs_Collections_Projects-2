@@ -1,31 +1,61 @@
-const form = document.querySelector('form');
-const AgeInput = document.getElementById('birth');
-const result = document.getElementById('result');
 
-const currentDate = new Date();
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const birthValue = AgeInput.value;
-    const birthDate = new Date(birthValue);
-    if (birthDate > currentDate) {
-        result.innerHTML = "You are not born yet, bro!";
-    } else if (birthValue) {
-        const age = getAge(birthValue);
-        result.innerHTML = `You're ${age} years old.`;
-    } else {
-        alert("Please select the Birthdate...");
-    }
+        const form = document.getElementById('ageForm');
+        const resultElement = document.getElementById('result');
 
-})
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const birthInput = document.getElementById('birth');
+            const birthDate = new Date(birthInput.value);
+            const today = new Date();
+            
+            if (!birthInput.value) {
+                resultElement.textContent = 'Please enter a valid birth date!';
+                resultElement.classList.add('show');
+                return;
+            }
+            
+            if (birthDate > today) {
+                console.log(birthDate)
+                resultElement.textContent = 'Birth date cannot be in the future!';
+                resultElement.classList.add('show');
+                return;
+            }
 
-function getAge(birthValue) {
-    const birthDate = new Date(birthValue);
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
 
-    let age = currentDate.getFullYear() - birthDate.getFullYear();
-    const m = currentDate.getMonth() - birthDate.getMonth();
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
 
-    if( m < 0 && (m === 0 || (currentDate.getDate() < birthDate.getDate()))){
-        age --;
-    }
-    return age;
-}
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            resultElement.classList.add('show');
+            resultElement.innerHTML = `
+                <div>
+                    <div style="font-size: 20px; margin-bottom: 15px;">You are</div>
+                    <div class="age-details">
+                        <div class="age-item">
+                            <span class="age-number">${years}</span>
+                            <span class="age-label">Years</span>
+                        </div>
+                        <div class="age-item">
+                            <span class="age-number">${months}</span>
+                            <span class="age-label">Months</span>
+                        </div>
+                        <div class="age-item">
+                            <span class="age-number">${days}</span>
+                            <span class="age-label">Days</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            console.log(resultElement.innerHTML)
+        });
