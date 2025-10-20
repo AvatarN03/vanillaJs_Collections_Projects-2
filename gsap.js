@@ -5,8 +5,9 @@ gsap.from("#heading", {
   y: -150,
   opacity: 0,
   duration: 1.2,
-  ease: "bounce.out",
-  delay: 0.3,
+  ease: "back.out(3.7)",
+  stagger: 0.2,
+  delay: 0.5,
 });
 
 // Image scale on scroll
