@@ -195,6 +195,13 @@ const allProjectData = {
       description: "Responsive educational landing page.",
       image: "./assets/lucy-min.png",
       link: "./projects/Lucy-Education/index.html",
+    },
+    {
+      id: 29,
+      title: "MemoryFlash",
+      description: "A Memory Flash Game tests players’ memory by matching card pairs as quickly as possible.",
+      image: "./assets/memory.jpg",
+      link: "./projects/MemoryFlash/index.html",
     }
   ],
 };

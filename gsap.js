@@ -16,7 +16,7 @@ gsap.to("#scroll-scale-img", {
   ease: "power2.out",
   scrollTrigger: {
     trigger: "#scroll-scale-img",
-    start: "top 80%",
+    start: "top 70%",
     end: "bottom 20%",
     scrub: true,
   },
@@ -30,7 +30,7 @@ gsap.fromTo("#card-container", {
   y:-50,
   delay:1.5,
   ease: "easeIn",
-  duration: 1,
+  duration: 0.3,
 })
 
 gsap.set(".c", {

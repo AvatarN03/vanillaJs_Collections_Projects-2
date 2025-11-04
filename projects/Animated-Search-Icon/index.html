@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Animated Search Icon</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="../assets/Animated-Search.png" type="image/x-icon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="../../assets/search.png" type="image/x-icon">
+    <title>Modern Animated Search</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 
-        <link href="./style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="search-bar-container active">
-            <img src="https://cdn2.iconfinder.com/data/icons/asic/50/.svg-5-256.png" alt="Search-Icon" class="magnifer">
-            <input type="text" name="text" placeholder="Search . . . ">
-            <img src="https://cdn2.iconfinder.com/data/icons/oneui/24/google_voice_search-256.png" alt="" class="mic">
+</head>
+<body>
+    <div class="container">
+        <h1>Smart Search</h1>        
+        <div class="search-bar-container">
+            <img src="https://cdn2.iconfinder.com/data/icons/asic/50/.svg-5-256.png" alt="Search Icon" class="magnifier">
+            <input type="text" name="text" placeholder="Search anything..." autocomplete="off">            
+            <div class="suggestions">
+                <div class="suggestion-item" data-value="Web Development">
+                    <i class="fa-brands fa-webflow"></i>
+                    Web Development
+                </div>
+                <div class="suggestion-item" data-value="JavaScript Tutorials">
+                    <i class="fa-brands fa-square-js"></i>
+                    JavaScript Tutorials
+                </div>
+                <div class="suggestion-item" data-value="UI/UX Design">
+                    <i class="fa-solid fa-u"></i>
+                    UI/UX Design
+                </div>
+                <div class="suggestion-item" data-value="React Components">
+                    <i class="fa-brands fa-react"></i>
+                    React Components
+                </div>
+            </div>
         </div>
-    <script src="./main.js"></script>
-    </body>
+
+        <p class="info-text">Click the search icon to toggle </p>
+    </div>
+
+  <script src="./main.js"></script>
+</body>
 </html>
