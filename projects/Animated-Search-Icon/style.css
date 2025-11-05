@@ -108,6 +108,7 @@ input {
   font-size: 16px;
   transition: all 0.4s ease;
   transition-delay: 0.1s;
+  display: none;
 }
 
 input::placeholder {
@@ -128,6 +129,7 @@ input:focus::placeholder {
   width: 100%;
   padding: 15px 60px;
   opacity: 1;
+  display: block;
 }
 
 
@@ -192,35 +194,49 @@ input:focus::placeholder {
   margin-top: 20px;
   animation: fadeInUp 0.8s ease 0.6s both;
 }
-
 @media screen and (max-width: 600px) {
   h1 {
     font-size: 1.8rem;
+    text-align: center;
   }
 
   .search-bar-container {
     width: 55px;
-    max-width: 55px;
     height: 55px;
+    padding: 6px;
   }
 
+  /* ✅ Expanded state – input visible and takes most of the width */
   .search-bar-container.expanded {
     width: 90vw;
     max-width: 400px;
+    transition: all 0.5s ease;
   }
 
   .magnifier {
-    width: 24px;
-    height: 24px;
-    left: 15px;
+    width: 22px;
+    height: 22px;
+    left: 25px;
+    transition: all 0.4s ease;
   }
 
   input {
     font-size: 14px;
     padding: 12px 50px;
+    opacity: 0;
+    width: 0;
+    transition: all 0.4s ease;
   }
 
-  .search-bar-container.expanded {
-    width: 55px;
+  /* ✅ When expanded, input becomes visible */
+  .search-bar-container.expanded input {
+    width: 100%;
+    opacity: 1;
+    padding: 12px 50px 12px 45px;
+  }
+
+  .suggestions {
+    top: 60px;
+    border-radius: 15px;
   }
 }
