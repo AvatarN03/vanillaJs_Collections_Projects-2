@@ -7,54 +7,37 @@
     <title>The Cursor-Animation</title>
     <link rel="shortcut icon" href="../assets/Cursor.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/cursor.png" type="image/x-icon">
+   
+
 </head>
 
 <body>
+    <canvas id="backgroundCanvas"></canvas>
+    <canvas id="particles"></canvas>
+    
     <div class="cursor"></div>
-    <div class="shadow1"></div>
+    
     <section class="main">
         <h1>Cursor Animation</h1>
+        <p class="subtitle">Move your cursor or touch to explore the interactive effects</p>
+        
+        <div class="interactive-grid">
+            <div class="grid-item" data-color="#ff0080">
+                <h3>Magnetic Field</h3>
+                <p>Experience dynamic particle interactions</p>
+            </div>
+            <div class="grid-item" data-color="#00ffff">
+                <h3>Wave Patterns</h3>
+                <p>Create beautiful ripple effects</p>
+            </div>
+            <div class="grid-item" data-color="#ffeb3b">
+                <h3>Particle Trail</h3>
+                <p>Follow your cursor with sparkling particles</p>
+            </div>
+        </div>
     </section>
-    <div class="shadow2"></div>
+
+   <script src="./main.js"></script>
 </body>
-<script>
-    const cursor = document.querySelector('.cursor');
-    let timevar;
-
-    function showCursor(x, y) {
-        cursor.style.top = y + 'px';
-        cursor.style.left = x + 'px';
-        cursor.style.display = 'block';
-
-        clearTimeout(timevar);
-        timevar = setTimeout(() => {
-            cursor.style.display = 'none';
-        }, 1000);
-    }
-
-    // Mouse support
-    document.addEventListener('mousemove', (e) => {
-        showCursor(e.pageX, e.pageY);
-    });
-
-    document.addEventListener('mouseout', () => {
-        cursor.style.display = 'none';
-    });
-
-    // Touch support
-    document.addEventListener('touchmove', (e) => {
-        const touch = e.touches[0];
-        showCursor(touch.pageX, touch.pageY);
-    });
-
-    document.addEventListener('touchend', () => {
-        cursor.style.display = 'none';
-    });
-</script>
-
-
 </html>

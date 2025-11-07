@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../assets/stopwatch.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/Timer.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>The Counter_Timer</title>
@@ -21,9 +22,11 @@
             <th><input type="time" id="time"></th>
         </tr>
     </table>
-    <button id="cal">Calculate</button>
-    <button id="stop">Stop</button>
-    <button id="reset"> Reset</button>
+    <div class="buttons">
+        <button id="cal">Calculate</button>
+        <button id="stop">Stop</button>
+        <button id="reset"> Reset</button>
+    </div>
 
     <hr class="line">
 
@@ -48,11 +51,14 @@
 
 
     <footer class="footer">
-
-        <p>&copy; CopyRights @ 2024 By <span>Mr. Prashanth Naidu </span>| All Rights Reserved</p>
+        <p>&copy; CopyRights @ <strong class="year">2003</strong> By <span>Mr. Prashanth Naidu </span>| All Rights Reserved</p>
     </footer>
 
 </body>
 <script src="./main.js"></script>
+<script>
+    const year = document.querySelector(".year")
+    year.innerHTML = new Date().getFullYear()
+</script>
 
 </html>

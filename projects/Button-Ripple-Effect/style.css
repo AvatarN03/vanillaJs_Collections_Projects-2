@@ -6,8 +6,10 @@
 }
 
 body{
-    display: grid;
-    place-content: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100vw;
     min-height: 100vh;
     background: rgb(241, 184, 109);
