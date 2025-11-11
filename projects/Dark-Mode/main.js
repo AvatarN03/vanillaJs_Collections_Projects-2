@@ -1,38 +1,29 @@
-// const input = document.getElementsByTagName("input")[0];
 const input = document.querySelector("input");
+const body = document.querySelector("body");
 
-const Body = document.querySelector("body");
-
-console.log(input.checked);
-
-function local(){
-    if (localStorage.getItem("toggle") === "true") {
-        input.checked = true;
-      }
-      else{
-        input.checked = false
-      }
+// Load saved preference
+function loadPreference() {
+  const isDark = localStorage.getItem("darkMode") === "true";
+  input.checked = isDark;
+  updateTheme();
 }
-local();
 
-update();
-
-//I learned the that the addEvent has the "input" attribute too...
-input.addEventListener("input", () => {
-    localStorage.getItem("toggle") === "true" ? localStorage.removeItem("toggle") : localStorage.setItem("toggle", "true");
-    update();
-});
-
-function update() {
-  if (input.checked === true) {
-    setTimeout(() => {
-      Body.style.background = "black";
-      Body.style.color = "white";
-    }, 200);
+// Update theme based on checkbox state
+function updateTheme() {
+  if (input.checked) {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
   } else {
-    setTimeout(() => {
-      Body.style.background = "white";
-      Body.style.color = "black";
-    }, 200);
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
   }
 }
+
+// Listen for toggle changes
+input.addEventListener("input", () => {
+  localStorage.setItem("darkMode", input.checked);
+  updateTheme();
+});
+
+// Initialize
+loadPreference();

@@ -1,33 +1,60 @@
-const kits = ['crash1', 'snare1', 'tom1', 'kick1']
-const Container = document.querySelector('.container');
+const kits = [
+  { name: "crash1", key: "c" },
+  { name: "snare1", key: "s" },
+  { name: "tom1", key: "t" },
+  { name: "kick", key: "k" },
+];
 
+const container = document.querySelector(".container");
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-kits.forEach(kit=>{
-    const kitElement = document.createElement('button');
-    kitElement.classList.add('btn');
-    kitElement.innerText = kit;
+kits.forEach((kit) => {
+  const kitElement = document.createElement("button");
+  kitElement.classList.add("btn");
+  kitElement.innerHTML = `
+                ${kit.name.replace(/\d+$/, "")}
+                <span class="key-hint">${kit.key.toUpperCase()}</span>
+            `;
 
+  container.appendChild(kitElement);
 
-    Container.appendChild(kitElement);
+  // Create audio element
+  const audioEle = document.createElement("audio");
+  audioEle.src = `assets/${kit.name}.wav`;
+  audioEle.preload = "auto";
+  container.appendChild(audioEle);
 
-    const audioEle = document.createElement('audio');
-    audioEle.src = `assets/${kit}.wav`;
+  // Play sound function with visual feedback
+  const playSound = () => {
+    // Reset audio to start
+    audioEle.currentTime = 0;
+    audioEle.play().catch((e) => console.log("Audio play failed:", e));
 
-    Container.appendChild(audioEle);
+    // Add visual feedback
+    kitElement.classList.add("playing");
+    setTimeout(() => {
+      kitElement.classList.remove("playing");
+    }, 150);
+  };
 
-    kitElement.addEventListener('click', ()=>{
-        audioEle.play();
-    })
+  // Click event
+  kitElement.addEventListener("click", playSound);
 
-    window.addEventListener('keydown', (e)=>{
-        if(e.key === kit.slice(0,1)){
-            console.log(e.key);
-            
-            audioEle.play();
-            kitElement.style.transform = 'scale(0.9)';
-            setTimeout(()=>{
-                kitElement.style.transform = 'scale(1)'
-            }, 50)
-        }
-    })
- });
+  // Keyboard event
+  window.addEventListener("keydown", (e) => {
+    if (e.key.toLowerCase() === kit.key) {
+      playSound();
+    }
+  });
+});
+
+// Initialize audio context on first user interaction
+document.addEventListener(
+  "click",
+  () => {
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
+  },
+  { once: true }
+);

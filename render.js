@@ -199,7 +199,7 @@ const allProjectData = {
     {
       id: 29,
       title: "MemoryFlash",
-      description: "A Memory Flash Game tests players’ memory by matching card pairs as quickly as possible.",
+      description: "A Memory Flash Game tests players' memory by matching card pairs as quickly as possible.",
       image: "./assets/memory.jpg",
       link: "./projects/MemoryFlash/index.html",
     }
@@ -207,7 +207,7 @@ const allProjectData = {
 };
 
 
-// Pagination and rendering logic below...
+// Pagination and rendering logic
 const chunkSize = 10;
 let currentIndex = 0;
 let filteredProjects = [];
@@ -216,12 +216,10 @@ const cardContainer = document.querySelector("#card-container");
 const loadMoreBtn = document.querySelector("#load-more");
 const searchInput = document.querySelector("#searchInput");
 
-// 🔹 set global data
 const allProjects = allProjectData.projects;
-console.log(allProjectData)
-console.log(allProjects)
+console.log(allProjectData);
+console.log(allProjects);
 
-// 🔹 rest of your render code (same as before)
 function renderProjectsChunk(startIndex, size) {
   const isSearching = searchInput && searchInput.value.trim() !== "";
   const activeData = isSearching ? filteredProjects : allProjects;
@@ -261,9 +259,18 @@ function renderProjectsChunk(startIndex, size) {
   cardContainer.appendChild(fragment);
   currentIndex = endIndex;
   loadMoreBtn.style.display = currentIndex >= activeData.length ? "none" : "block";
+
+  // 🔥 Trigger GSAP animation after rendering cards
+  if (typeof window.animateCards === 'function') {
+    setTimeout(() => window.animateCards(), 50);
+  }
 }
 
-if (loadMoreBtn) loadMoreBtn.addEventListener("click", () => renderProjectsChunk(currentIndex, chunkSize));
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener("click", () => {
+    renderProjectsChunk(currentIndex, chunkSize);
+  });
+}
 
 if (searchInput) {
   searchInput.addEventListener("input", (e) => {

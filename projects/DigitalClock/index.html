@@ -3,52 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../assets/Digital-Clock.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
     <title>Digital Clock</title>
+    <link rel="shortcut icon" href="../../assets/digital-clock.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            color: #ff4dff;
+        }
+
+        html {
+            font-size: 72.5%;
+        }
+
+        body {
+            background-color: #100c08;
+            font-size: 4rem;
+            margin-top: 150px;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+            perspective-origin: center center;
+            overflow: hidden;
+        }
+
+        .see {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(20deg) scale(0.95);
+        }
+
+        .title {
+            position: absolute;
+            top: 5%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 5rem;
+            -webkit-text-stroke-color: #10eedb9d;
+            -webkit-text-stroke-width: 0.2rem;
+            text-shadow: 0px 10px 5px rgb(179, 127, 127);
+            transform: translateZ(100px);
+        }
+
+        .heading {
+            position: absolute;
+            top: 18%;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
+            text-align: center;
+            transform-style: preserve-3d;
+        }
+
+        .heading > div {
+            background: #1a1a00;
+            width: 15rem;
+            height: auto;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 1px 3px 14px rgba(68, 65, 219, 0.829);
+            transition: 0.5s ease-in-out;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transform: translateZ(50px);
+        }
+
+        .heading > div:hover {
+            transform: translateZ(150px) rotateY(15deg) rotateX(10deg) scale(1.05);
+        }
+
+        .heading > div hr {
+            margin-bottom: 0.8rem;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            text-align: center;
+            width: 85%;
+            transform-style: preserve-3d;
+        }
+
+        .container > div {
+            background: #1a130d;
+            padding: 1rem 3rem;
+            border-radius: 1.5rem;
+            height: 20rem;
+            width: 25rem;
+            text-align: center;
+            box-shadow: 1px 2px 14px rgba(255, 255, 255, 0.5);
+            transition: 0.5s ease-in-out;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transform: translateZ(30px);
+        }
+
+        .container > div:hover {
+            background: linear-gradient(to right, #522d0e, red);
+            transform: translateZ(120px) rotateY(-10deg) scale(1.1);
+        }
+
+        .container > div p {
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .container > div div {
+            color: #eee;
+            padding-bottom: 2rem;
+            font-size: 10rem;
+        }
+
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 50%;
+            }
+            body {
+            background-color: #100c08;
+            font-size: 4rem;
+            margin-top: 150px;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: auto;
+            overflow: hidden;
+        }
+
+        .see {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-2d;
+            transform: rotateX(0) rotateY(0) scale(1);
+        }
+        }
+
+        @media (max-width: 590px) {
+            html {
+                font-size: 35%;
+            }
+        }
+
+        @media (max-width: 450px) {
+            html {
+                font-size: 25%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1 class="title">The Digital Clock</h1>
-    <div class="heading">
-        <div >
-            <p >Month</p>
-            <hr>
-            <div id="month"></div>
+    <div class="see">
+        <h1 class="title">The Digital Clock</h1>
+        <div class="heading">
+            <div>
+                <p>Month</p>
+                <hr>
+                <div id="month"></div>
+            </div>
+            <div>
+                <p>Day</p>
+                <hr>
+                <div id="day"></div>
+            </div>
+            <div>
+                <p>Date</p>
+                <hr>
+                <div id="date"></div>
+            </div>
         </div>
-        <div>
-            <p>Day</p>
-            <hr>
-            <div id="day"></div>
-        </div>
-        <div>
-            <p>Date</p>
-            <hr>
-            <div id="date"></div>
+
+        <div class="container">
+            <div>
+                <p>Hours</p>
+                <hr>
+                <div id="hours"></div>
+            </div>
+            <div>
+                <p>Minutes</p>
+                <hr>
+                <div id="min"></div>
+            </div>
+            <div>
+                <p>Seconds</p>
+                <hr>
+                <div id="sec"></div>
+            </div>
         </div>
     </div>
-
-    <div class="container">
-        <div >
-            <p >Hours</p>
-            <hr>
-            <div id="hours"></div>
-        </div>
-        <div>
-            <p>Minutes</p>
-            <hr>
-            <div id="min"></div>
-        </div>
-        <div>
-            <p>Seconds</p>
-            <hr>
-            <div id="sec"></div>
-        </div>
-    </div>
-    <footer>
-        <p>&copy; CopyRights @ 2024 by <span>Mr. Prashanth Naidu</span> | All Rights Reserved !!</p></p>
-    </footer>
-
-    <script src="main.js"></script>
     
+
+    <script>
+        window.onload = () => {
+            function clock() {
+                let date = new Date();
+
+                let hr = date.getHours();
+                let min = date.getMinutes();
+                let sec = date.getSeconds();
+                let mth = date.getMonth();
+                let day = date.getDay();
+                let dt = date.getDate();
+
+                hr = hr < 10 ? '0' + hr : hr;
+                min = min < 10 ? '0' + min : min;
+                sec = sec < 10 ? '0' + sec : sec;
+
+                const m = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                const d = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+                mth = m[mth];
+                day = d[day];
+
+                document.querySelector('#hours').innerHTML = hr;
+                document.querySelector('#min').innerHTML = min;
+                document.querySelector('#sec').innerHTML = sec;
+
+                document.querySelector('#month').innerHTML = mth;
+                document.querySelector('#day').innerHTML = day;
+                document.querySelector('#date').innerHTML = dt;
+
+                setTimeout(clock, 1000);
+            }
+            clock();
+        };
+    </script>
 </body>
 </html>

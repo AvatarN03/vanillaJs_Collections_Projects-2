@@ -12,70 +12,115 @@ body {
   min-height: 100vh;
   text-align: center;
   font-family: cursive;
-  background-color: var(--mode);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 95%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition: background-image 0.3s ease;
+  border-radius: 100px;
+}
+
+body.light-mode {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+body.light-mode::before {
+  background-image: url("../../assets/dark-light.jpg");
+}
+
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+body.dark-mode::before {
+  background-image: url("../../assets/dark-dark.jpg");
+}
+
+body > * {
+  z-index: 120;
   position: relative;
 }
 
-h1{
-    position: absolute;
-    left: 50%;
-    top: 20%;
-    transform: translate(-50%);
+h1 {
+  position: absolute;
+  left: 50%;
+  bottom: 25%;
+  transform: translate(-50%);
+  padding: 20px;
+  background: linear-gradient(
+    to right bottom,
+    rgba(173, 61, 201, 0.5),
+    transparent
+  );
+  border-radius: 10px;
+  font-size: 50px;
 }
 
-input[type="checkbox"]{
-    display: none;
+input[type="checkbox"] {
+  display: none;
 }
 
-label{
-    position: absolute;
-    width: 80px;
-    background: darkgray;
-    border-radius: 40px;
-    height: 40px;
-    margin:  20px auto;
+label {
+  position: absolute;
+  width: 80px;
+  background: darkgray;
+  border-radius: 40px;
+  height: 40px;
+  margin: 20px auto;
+  cursor: pointer;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.circle{
-    background: white;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-    position: absolute;
-    cursor: pointer;
-    animation: toggleOff .4s linear forwards;
+.circle {
+  background: white;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  position: absolute;
+  cursor: pointer;
+  animation: toggleOff 0.4s linear forwards;
 }
 
-
-
-
-/* if the input is check then (+) the label ..., this way the logic is written */
-input:checked + label{
-    background: pink;
+input:checked + label {
+  background: pink;
 }
 
-/* forward is the way of the animation i get to know today ...  */
-input:checked + label .circle{
-    animation: toggleOn .4s linear forwards ;
+input:checked + label .circle {
+  animation: toggleOn 0.4s linear forwards;
 }
 
 @keyframes toggleOn {
-    0%{
-        transform: translateX(0px);
-    }
-    100%{
-        transform: translateX(40px);
-    }
-    
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(40px);
+  }
 }
+
 @keyframes toggleOff {
-    0%{
-        transform: translateX(40px);
-    }
-    100%{
-        transform: translateX(0px);
-    }
-    
+  0% {
+    transform: translateX(40px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
