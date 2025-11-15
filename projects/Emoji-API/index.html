@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Random Emoji</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="../assets/Emoji.jpg" type="image/x-icon">
-        <link href="./style.css" rel="stylesheet">
-    </head>
-    <body>
-        <h2>Random Emoji</h2>
-        <div class="section">
-            <button id="click">Click</button>
-            <p id="emoji-name">Emoji Name</p>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Emoji</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../../assets/emoji.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <h1>✨ Random Emoji</h1>
+        <p id="copy-notification" class="copy-notification">Copied to clipboard! ✓</p>
+
+        <div class="emoji-display">
+            <span id="emoji">😊</span>
         </div>
-    
-        <script src="./config.js"></script>
-        <script src="./main.js"></script>
-    </body>
+
+        <p id="emoji-name">Smiling Face</p>
+        <div class="button-group">
+            <button id="generate-btn">Generate</button>
+            <button id="copy-btn" class="copy-btn">📋 Copy</button>
+        </div>
+
+        <p class="subtitle">Click to discover a random emoji!</p>
+
+    </div>
+    <script src="./config.js"></script>
+    <script src="./main.js"></script>
+</body>
+
 </html>

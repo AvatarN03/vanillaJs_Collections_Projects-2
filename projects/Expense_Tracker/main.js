@@ -1,98 +1,164 @@
-const balance = document.getElementById("balance");
-const money_plus = document.getElementById("money-plus");
-const money_minus = document.getElementById("money-minus");
-const list = document.getElementById("list");
-const form = document.getElementById("form");
-const text = document.getElementById("text");
-const amount = document.getElementById("amount");
+  const balance = document.getElementById("balance");
+        const moneyPlus = document.getElementById("money-plus");
+        const moneyMinus = document.getElementById("money-minus");
+        const list = document.getElementById("list");
+        const form = document.getElementById("form");
+        const text = document.getElementById("text");
+        const amount = document.getElementById("amount");
+        const category = document.getElementById("category");
+        const totalTransactions = document.getElementById("total-transactions");
+        const avgTransaction = document.getElementById("avg-transaction");
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const clearAllBtn = document.getElementById("clear-all");
 
-const localStorageTransactions = JSON.parse(
-  localStorage.getItem("transactions")
-);
+        let currentFilter = "all";
 
-let transactions =
-  localStorage.getItem("transactions") !== null ? localStorageTransactions : [];
+        const localStorageTransactions = JSON.parse(localStorage.getItem("transactions"));
+        let transactions = localStorage.getItem("transactions") !== null ? localStorageTransactions : [];
 
-function addTransaction(e) {
-  e.preventDefault();
+        function addTransaction(e) {
+            e.preventDefault();
 
-  if (text.value.trim() === "" || amount.value.trim() === "") {
-    alert("Please enter a text and amount");
-  } else {
-    const transaction = {
-      id: Math.floor(Math.random() * 1000000),
-      text: text.value,
-      amount: +amount.value,
-    };
+            if (text.value.trim() === "" || amount.value.trim() === "" || category.value === "") {
+                alert("Please fill in all fields");
+                return;
+            }
 
-    transactions.push(transaction);
-    addtransactionDOM(transaction);
-    text.value = "";
-    amount.value = "";
-    updateValues();
+            const transaction = {
+                id: Date.now(),
+                text: text.value,
+                amount: +amount.value,
+                category: category.value,
+                date: new Date().toLocaleDateString()
+            };
 
-    updateLocalStorage();
-  }
-}
+            transactions.push(transaction);
+            updateLocalStorage();
+            init();
 
-function addtransactionDOM(transaction) {
-  const sign = transaction.amount < 0 ? "-" : "+";
+            text.value = "";
+            amount.value = "";
+            category.value = "";
+        }
 
-  const item = document.createElement("li");
-  item.classList.add(transaction.amount < 0 ? "minus" : "plus");
-  item.innerHTML = `
-    ${transaction.text} <span>${sign}${Math.abs(
-    transaction.amount
-  )}</span> <button class="delete-btn" onclick="removeTransaction(${
-    transaction.id
-  })">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-</svg>
+        function addTransactionDOM(transaction) {
+            const sign = transaction.amount < 0 ? "-" : "+";
+            const item = document.createElement("li");
+            item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+            
+            const categoryEmoji = getCategoryEmoji(transaction.category);
+            
+            item.innerHTML = `
+                <span class="transaction-text">${categoryEmoji} ${transaction.text}</span>
+                <span class="transaction-amount ${transaction.amount < 0 ? 'minus' : 'plus'}">
+                    ${sign}$${Math.abs(transaction.amount).toFixed(2)}
+                </span>
+                <button class="delete-btn" onclick="removeTransaction(${transaction.id})">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            `;
 
-  </button>`;
+            list.appendChild(item);
+        }
 
-  list.appendChild(item);
-}
+        function getCategoryEmoji(category) {
+            const emojis = {
+                salary: "💼",
+                freelance: "💻",
+                investment: "📈",
+                food: "🍔",
+                transport: "🚗",
+                entertainment: "🎮",
+                shopping: "🛍️",
+                bills: "📄",
+                other: "📌"
+            };
+            return emojis[category] || "📌";
+        }
 
-function updateValues() {
-  const amounts = transactions.map((transaction) => transaction.amount);
+        function updateValues() {
+            const amounts = transactions.map(transaction => transaction.amount);
+            const total = amounts.reduce((acc, item) => acc + item, 0).toFixed(2);
+            const income = amounts
+                .filter(item => item > 0)
+                .reduce((acc, item) => acc + item, 0)
+                .toFixed(2);
+            const expense = (amounts
+                .filter(item => item < 0)
+                .reduce((acc, item) => acc + item, 0) * -1)
+                .toFixed(2);
 
-  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+            balance.textContent = `$${total}`;
+            moneyPlus.textContent = `$${income}`;
+            moneyMinus.textContent = `$${expense}`;
+            totalTransactions.textContent = transactions.length;
+            
+            const avg = transactions.length > 0 
+                ? (amounts.reduce((acc, item) => acc + Math.abs(item), 0) / transactions.length).toFixed(2)
+                : "0.00";
+            avgTransaction.textContent = `$${avg}`;
+        }
 
-  const income = amounts
-    .filter((item) => item > 0)
-    .reduce((acc, item) => (acc += item), 0)
-    .toFixed(2);
+        function updateLocalStorage() {
+            localStorage.setItem("transactions", JSON.stringify(transactions));
+        }
 
-  const expense = (
-    amounts
-      .filter((item) => item <= 0)
-      .reduce((acc, item) => (acc += item), 0) * -1
-  ).toFixed(2);
+        function removeTransaction(id) {
+            transactions = transactions.filter(transaction => transaction.id !== id);
+            updateLocalStorage();
+            init();
+        }
 
-  balance.innerHTML = `${total}`;
-  money_minus.innerHTML = `${expense}`;
-  money_plus.innerHTML = `${income}`;
-}
+        function filterTransactions(filter) {
+            currentFilter = filter;
+            init();
+        }
 
-function updateLocalStorage() {
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-}
+        function init() {
+            list.innerHTML = "";
+            
+            let filteredTransactions = transactions;
+            if (currentFilter === "income") {
+                filteredTransactions = transactions.filter(t => t.amount > 0);
+            } else if (currentFilter === "expense") {
+                filteredTransactions = transactions.filter(t => t.amount < 0);
+            }
 
-function removeTransaction(id) {
-  transactions = transactions.filter((transaction) => transaction.id !== id);
+            if (filteredTransactions.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                        </svg>
+                        <p>No transactions yet. Add your first transaction!</p>
+                    </div>
+                `;
+            } else {
+                filteredTransactions.forEach(addTransactionDOM);
+            }
+            
+            updateValues();
+        }
 
-  updateLocalStorage();
-  init();
-}
+        // Event Listeners
+        form.addEventListener("submit", addTransaction);
 
-function init() {
-  list.innerHTML = "";
-  transactions.forEach(addtransactionDOM);
-  updateValues();
-}
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                filterTransactions(btn.dataset.filter);
+            });
+        });
 
-init();
+        clearAllBtn.addEventListener("click", () => {
+            if (confirm("Are you sure you want to clear all transactions?")) {
+                transactions = [];
+                updateLocalStorage();
+                init();
+            }
+        });
 
-form.addEventListener("submit", addTransaction);
+        init();
