@@ -23,7 +23,7 @@ p{
 }
 
 span{
-    background: url("../assets/ring.png") center no-repeat;
+    background: url("../../assets/ring.png") center no-repeat;
     background-size: cover;
     width: 100px;
     height: 100px;
