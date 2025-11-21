@@ -32,30 +32,7 @@ body {
   transition: width 0.3s ease;
 }
 
-/* 1️⃣ White → Blue → Black */
-.gradient-1 {
-  background: linear-gradient(120deg, #ffffff, #3b82f6, #000000);
-}
 
-/* 2️⃣ Yellow → Blue → White */
-.gradient-2 {
-  background: linear-gradient(90deg, #facc15, #3b82f6, #ffffff);
-}
-
-/* 3️⃣ Black → Yellow → Blue */
-.gradient-3 {
-  background: linear-gradient(135deg, #000000, #facc15, #3b82f6);
-}
-
-/* 4️⃣ Blue → White → Yellow */
-.gradient-4 {
-  background: linear-gradient(150deg, #3b82f6, #ffffff, #facc15);
-}
-
-/* 5️⃣ Subtle blend: White → Yellow → Black → Blue */
-.gradient-5 {
-  background: linear-gradient(160deg, #ffffff, #facc15, #000000, #3b82f6);
-}
 
 
 .card-container{
@@ -147,8 +124,7 @@ body {
   color:white;
 }
 
-/* Custom gradient scrollbar */
-/* filepath: e:\Projects\Web-Dev\HCJ\vanillajs-2\src\style.css */
+
 
 /* For Chrome, Edge, Safari */
 ::-webkit-scrollbar {
@@ -178,20 +154,3 @@ html, body {
   padding: 0;
   scroll-behavior: smooth;
 }
-
- @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .animate-gradient {
-            background-size: 200% 200%;
-            animation: gradient 8s ease infinite;
-        }

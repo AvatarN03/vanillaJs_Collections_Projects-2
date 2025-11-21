@@ -20,7 +20,7 @@ updateGallery();
 });
 
 function updateGallery(){
-    imageContainer.style.transform = `perspective(1000px) rotateY(${x}deg)`;
+    imageContainer.style.transform = `perspective(1200px) rotateY(${x}deg)`;
     timer = setTimeout(()=>{
         x = x-45;
         updateGallery();

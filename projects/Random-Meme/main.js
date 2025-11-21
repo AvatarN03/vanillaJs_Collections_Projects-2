@@ -3,6 +3,9 @@ const title = document.querySelector('.meme-title');
 const image = document.querySelector('.meme-image');
 const author = document.querySelector('.meme-author');
 const spinner = document.querySelector('.spinner');
+const ImageDownload = document.getElementById('download')
+
+let url = 'https://imgs.search.brave.com/k5cFJ5M481qyZ3ZsNk2fm1_OBZZQln5yjo5E4e_9Q94/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmt5/bS1jZG4uY29tL3Bo/b3Rvcy9pbWFnZXMv/bWFzb25yeS8wMDAv/NDA2Lzk0Ni80YTMu/anBn';
 
 
 const updateDetails = (data_title, data_author) => {
@@ -36,7 +39,9 @@ const generateMeme = () => {
 
         // Set the image source after setting up the load event listener
         image.setAttribute('src', data.url);
+        url = data.url
     })
 }
+
 
 generate.addEventListener('click', generateMeme);

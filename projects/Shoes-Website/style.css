@@ -135,6 +135,8 @@ section .main .social_icon {
   left: 98%;
   transform: translate(-50%, -50%);
   font-size: 19px;
+  display: flex;
+  flex-direction: column;
 }
 
 section .main .social_icon i {

@@ -5,7 +5,7 @@ let selectors = {
   timer: document.querySelector(".timer"),
   start: document.querySelector("button"),
   win: document.querySelector(".win"),
-  dimensionSelect: document.querySelector(".dimension-select"), // ✅ new
+  dimensionSelect: document.querySelector(".dimension-select"),
 };
 
 const state = {
@@ -27,6 +27,8 @@ const generateGame = () => {
   const emojis = [
     "🧠", "💡", "📚", "🔑", "📝", "🎯", "🕹️", "🧩",
     "🎲", "🃏", "🕰️", "🔍", "📖", "🧮", "🎮", "🗝️",
+    "🎨", "🎭", "🎪", "🎬", "🎤", "🎧", "🎼", "🎹",
+    "🚀", "🛸", "🌟", "⭐", "🌙", "☀️", "🌈", "🔥",
   ];
 
   const picks = pickRandom(emojis, (dimensions * dimensions) / 2);
@@ -45,7 +47,7 @@ const generateGame = () => {
   const parser = new DOMParser().parseFromString(cards, "text/html");
   const newBoard = parser.querySelector(".board");
   selectors.board.replaceWith(newBoard);
-  selectors.board = newBoard; // ✅ re-assign reference
+  selectors.board = newBoard;
 };
 
 const pickRandom = (array, items) => {
@@ -69,6 +71,22 @@ const shuffle = (array) => {
 };
 
 const attachEventListeners = () => {
+  // Listen for dimension changes
+  selectors.dimensionSelect.addEventListener("change", () => {
+    generateGame();
+    // Reset the game state when dimension changes
+    state.gameStarted = false;
+    state.flippedCards = 0;
+    state.totalFlips = 0;
+    state.totalTime = 0;
+    clearInterval(state.loop);
+    selectors.moves.innerText = `0 moves`;
+    selectors.timer.innerText = `time: 0 sec`;
+    selectors.win.innerHTML = ``;
+    selectors.boardContainer.classList.remove("flipped");
+    selectors.start.classList.remove("disabled");
+  });
+
   document.addEventListener("click", (event) => {
     const card = event.target.closest(".card");
 
@@ -96,10 +114,10 @@ const startGame = () => {
   selectors.win.innerHTML = ``;
   selectors.boardContainer.classList.remove("flipped");
 
-  // ✅ Generate new board based on selected dimension
+  // Generate new board based on selected dimension
   generateGame();
 
-  // ✅ Start new game timer after board generation
+  // Start new game timer after board generation
   state.gameStarted = true;
   selectors.start.classList.add("disabled");
   state.loop = setInterval(() => {
@@ -122,20 +140,22 @@ const flipCard = (card) => {
   if (state.flippedCards === 2) {
     const flipped = document.querySelectorAll(".flipped:not(.matched)");
 
-    if (flipped[0].innerText === flipped[1].innerText) {
+    // Check if we have exactly 2 cards before comparing
+    if (flipped.length === 2 && flipped[0].innerText === flipped[1].innerText) {
       flipped.forEach(c => c.classList.add("matched"));
     }
 
     setTimeout(() => {
       flipBackCards();
 
-      // ✅ Check for win AFTER delay and flip-back
+      // Check for win AFTER delay and flip-back
       const remaining = document.querySelectorAll(".card:not(.matched)");
       if (remaining.length === 0) {
         selectors.boardContainer.classList.add("flipped");
         selectors.win.innerHTML = `
           <span class="win-text">
             You won in ${state.totalFlips} moves and ${state.totalTime} seconds!
+            <button onclick="window.location.reload()">Reset</button>
           </span>
         `;
         clearInterval(state.loop);
