@@ -34,38 +34,26 @@ if (scrollImg) {
   });
 }
 
-// Function to animate newly added cards
-function animateCards() {
-  const cards = document.querySelectorAll(".card");
-  
-  // Set initial state for new cards that haven't been animated
-  gsap.set(cards, {
-    opacity: 0,
-    y: 50,
-    scale: 0.95
-  });
-
-  // Animate cards with stagger
-  gsap.to(cards, {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    duration: 0.6,
-    stagger: 0.1,
-    ease: "power2.out",
-    clearProps: "all" // Clear inline styles after animation
-  });
+// Container slide up animation only
+function animateCardsContainer() {
+  const container = document.querySelector("#card-container");
+  if (container) {
+    gsap.from(container, {
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    });
+  }
 }
 
-// Export the function so render.js can call it
-window.animateCards = animateCards;
+window.animateCardsContainer = animateCardsContainer;
 
-// Animate cards on initial load (with delay to ensure they're rendered)
 setTimeout(() => {
-  animateCards();
+  animateCardsContainer();
 }, 100);
 
-// Optional: Animate cards on scroll for sections with specific IDs
+// Optional: Animate feature cards on scroll
 const whySection = document.querySelector("#why");
 if (whySection) {
   const whyCards = whySection.querySelectorAll(".c");
