@@ -416,8 +416,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Your Name**
 
-- GitHub: [@yourusername](https://github.com/AvatarN03)
-- LinkedIn: [Your Name]([https://linkedin.com/in/yourprofile](https://www.linkedin.com/in/prashanth-naidu03/))
+- GitHub: [AvatarN03](https://github.com/AvatarN03)
+- LinkedIn: [Prashanth Naidu](https://www.linkedin.com/in/prashanth-naidu03/)
 
 ## 🙏 Acknowledgments
 
